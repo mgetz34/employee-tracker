@@ -48,7 +48,7 @@ VALUES
 ("heaven", "nash", 8, 10),
 -- Customer Service Team
 -- talan (technical help) boss to perla and presley(consumer complaints)
-("talan", "barton", 9, 11),
-("perla", "hatfield", 10, 11),
-("presley", "odom", 10, 11);
+("talan", "barton", 9, 13),
+("perla", "hatfield", 10, 13),
+("presley", "odom", 10, 13);
 SELECT * FROM employee;

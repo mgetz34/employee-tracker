@@ -28,7 +28,8 @@ function start() {
                 type: 'list',
                 name: 'options',
                 message: "What would you like to do?",
-                choices: ["view all departments", "view all roles", "view all employees", "add a department", "add a role", "add an employee", "update an employee role"]
+                choices: ["view all departments", "view all roles", "view all employees",
+                    "add a department", "delete a department", "add a role", "add an employee", "update an employee role"]
             }
         ])
         .then((data) => {
@@ -43,7 +44,6 @@ function start() {
                 db.query('SELECT * FROM role', function (err, results) {
                     console.table(results);
                 });
-                start();
             }
             if (data.options === "view all employees") {
                 //view all employees query
@@ -52,16 +52,73 @@ function start() {
                 });
             }
             if (data.options === "add a department") {
-                //add a department post req?
+                addDepartment();
+            }
+            if (data.options === "delete a department") {
+                deleteDepartment();
             }
             if (data.options === "add a role") {
-                //add a role post req?
+                addRole();
             }
             if (data.options === "add an employee") {
-                //add am employee post req?
+                addEmployee();
             }
             if (data.options === "update an employee role") {
-                //update an employee post req?
+                updateEmployee();
             }
         })
 };
+
+function viewDepartments() {
+    db.query('SELECT * FROM department', function (err, results) {
+        console.table(results)
+    })
+};
+
+function addDepartment() {
+    inquirer
+        .prompt([
+            {
+                type: "input",
+                name: "department",
+                message: "What is the name of the new department?"
+            }
+        ]).then((answers) => {
+            db.query(`INSERT INTO department(name) VALUES ('${answers.department}')`, (err, results) => {
+                if (err) {
+                    console.log(err)
+                } else {
+                    viewDepartments();
+                }
+            })
+        })
+};
+
+function deleteDepartment() {
+    inquirer
+        .prompt([
+            {
+                type: "input",
+                name: "department",
+                message: "Which department do you want to delete?"
+            }
+        ]).then((answers) => {
+            db.query(`DELETE FROM department WHERE name = '${answers.department}')`, (err, results) => {
+                if (err) {
+                    console.log(err)
+                } else {
+                    viewDepartments();
+                }
+            })
+        })
+};
+
+
+
+
+
+
+
+// function addRole();
+// function addEmployee();
+// function updateEmployee();

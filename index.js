@@ -1,7 +1,22 @@
 const inquirer = require('inquirer');
-const art = require('ascii-art')
-// art.font("Employee Tracker", 'doom', (err, rendered) => {
-// });
+const mysql = require('mysql2');
+require('dotenv').config()
+
+const db = mysql.createConnection(
+    {
+        host: process.env.DB_HOST,
+        user: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
+        database: process.env.DB_NAME
+    },
+    console.log(`Connected to the company_db database.`)
+);
+db.connect((err) => {
+    if (err) {
+        throw error;
+    }
+});
+
 
 // GIVEN a command - line application that accepts user input
 // WHEN I start the application
@@ -19,6 +34,9 @@ function start() {
         .then((data) => {
             if (data.options === "view all departments") {
                 //view all departments query
+                db.query('SELECT * FROM department', function (err, results) {
+                    console.table(results);
+                });
             }
             if (data.options === "view all roles") {
                 //view all roles query

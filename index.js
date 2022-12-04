@@ -19,7 +19,7 @@ db.connect((err) => {
 // GIVEN a command - line application that accepts user input
 // WHEN I start the application
 // THEN I am presented with the following options: view all departments, view all roles, view all employees, add a department, add a role, add an employee, and update an employee role
-start();
+start()
 function start() {
     inquirer
         .prompt([
@@ -71,6 +71,7 @@ function start() {
 function viewDepartments() {
     db.query('SELECT * FROM department', function (err, results) {
         console.table(results)
+        start()
     });
 };
 // WHEN I choose to view all roles
@@ -78,6 +79,7 @@ function viewDepartments() {
 function viewRoles() {
     db.query('SELECT role.id, role.title, department.name, role.salary FROM role INNER JOIN department ON role.department_id = department.id;', function (err, results) {
         console.table(results);
+        start()
     })
 };
 // WHEN I choose to view all employees
@@ -86,6 +88,7 @@ function viewRoles() {
 function viewEmployees() {
     db.query('SELECT * FROM employee', function (err, results) {
         console.table(results);
+        start()
     });
 };
 // WHEN I choose to add a department

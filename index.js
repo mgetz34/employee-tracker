@@ -233,5 +233,42 @@ function deleteEmployee() {
 // WHEN I choose to update an employee role
 // THEN I am prompted to select an employee to update and their new role and this information is updated in the datab
 function updateEmployee() {
-
-}
+    inquirer
+        .prompt([
+            {
+                type: "input",
+                name: "employee_id",
+                message: "What is the id of the employee you would like to update?"
+            },
+            {
+                type: "input",
+                name: "first_name",
+                message: "Updated first name?"
+            },
+            {
+                type: "input",
+                name: "last_name",
+                message: "Updated last name?"
+            },
+            {
+                type: "input",
+                name: "role_id",
+                message: "Updated role id?"
+            },
+            {
+                type: "input",
+                name: "manager_id",
+                message: "Updated manager id?"
+            }
+        ]).then((answers) => {
+            db.query(`UPDATE employee SET first_name='${answers.first_name}', last_name='${answers.last_name}', role_id='${answers.role_id}',
+             manager_id = '${answers.manager_id}'
+             WHERE id='${answers.employee_id}')`, (err, results) => {
+                if (err) {
+                    console.log(err)
+                } else {
+                    viewEmployees();
+                }
+            })
+        })
+};

@@ -28,7 +28,7 @@ function start() {
                 name: 'options',
                 message: "What would you like to do?",
                 choices: ["view all departments", "view all roles", "view all employees", "add a department",
-                    "delete a department", "add a role", "delete a role", "add an employee", "update an employee role"]
+                    "delete a department", "add a role", "delete a role", "add an employee", "delete an employee", "update an employee role"]
             }
         ])
         .then((data) => {
@@ -55,6 +55,9 @@ function start() {
             }
             if (data.options === "add an employee") {
                 addEmployee();
+            }
+            if (data.options === "delete an employee") {
+                deleteEmployee();
             }
             if (data.options === "update an employee role") {
                 updateEmployee();
@@ -200,4 +203,24 @@ function addEmployee() {
             })
         })
 };
+
+function deleteEmployee() {
+    inquirer
+        .prompt([
+            {
+                type: "input",
+                name: "employee_id",
+                message: "Which employee do you want to delete? (use employee_id)"
+            }
+        ]).then((answers) => {
+            db.query(`DELETE FROM employee WHERE id = ?`, `${answers.employee_id}`, (err, result) => {
+                if (err) {
+                    console.log(err)
+                } else {
+                    viewEmployees();
+                }
+            })
+        })
+};
+
 // function updateEmployee();

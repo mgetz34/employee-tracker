@@ -132,6 +132,7 @@ function deleteDepartment() {
 };
 // WHEN I choose to add a role
 // THEN I am prompted to enter the name, salary, and department for the role and that role is added to the database
+//currently working, however it would be better to select which department the role belongs to in order to delete, insted of listing department id
 function addRole() {
     inquirer
         .prompt([

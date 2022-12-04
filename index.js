@@ -16,7 +16,6 @@ db.connect((err) => {
         throw error;
     }
 });
-
 // GIVEN a command - line application that accepts user input
 // WHEN I start the application
 // THEN I am presented with the following options: view all departments, view all roles, view all employees, add a department, add a role, add an employee, and update an employee role
@@ -136,7 +135,7 @@ function addRole() {
                 type: "input",
                 name: "department_id",
                 message: "What is the department id of the new role?"
-            },
+            }
         ]).then((answers) => {
             db.query(`INSERT INTO role(title, salary, department_id) VALUES ('${answers.role_title}', '${answers.role_salary}', '${answers.department_id}')`, (err, results) => {
                 if (err) {
@@ -147,6 +146,7 @@ function addRole() {
             })
         })
 };
+
 function deleteRole() {
     inquirer
         .prompt([
@@ -165,5 +165,39 @@ function deleteRole() {
             })
         })
 };
-// function addEmployee();
+
+function addEmployee() {
+    inquirer
+        .prompt([
+            {
+                type: "input",
+                name: "first_name",
+                message: "What is the first name of the new employee?"
+            },
+            {
+                type: "input",
+                name: "last_name",
+                message: "What is the last name of the new employee?"
+            },
+            {
+                type: "input",
+                name: "role_id",
+                message: "What is the employee's role id?"
+            },
+            {
+                type: "input",
+                name: "manager_id",
+                message: "What is the employee's manager id?"
+            }
+        ]).then((answers) => {
+            db.query(`INSERT INTO employee(first_name, last_name, role_id, manager_id) VALUES 
+            ('${answers.first_name}', '${answers.last_name}', '${answers.role_id}', '${answers.manager_id}')`, (err, results) => {
+                if (err) {
+                    console.log(err)
+                } else {
+                    viewEmployees();
+                }
+            })
+        })
+};
 // function updateEmployee();

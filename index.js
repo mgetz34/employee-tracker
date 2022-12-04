@@ -75,11 +75,10 @@ function viewDepartments() {
 };
 // WHEN I choose to view all roles
 // THEN I am presented with the job title, role id, the department that role belongs to, and the salary for that role
-//need to make a join statement for this
 function viewRoles() {
-    db.query('SELECT * FROM role', function (err, results) {
+    db.query('SELECT role.id, role.title, department.name, role.salary FROM role INNER JOIN department ON role.department_id = department.id;', function (err, results) {
         console.table(results);
-    });
+    })
 };
 // WHEN I choose to view all employees
 // THEN I am presented with a formatted table showing employee data, including employee ids, first names, last names, job titles, departments, salaries, and managers that the employees report to

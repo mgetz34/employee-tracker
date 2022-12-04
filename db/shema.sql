@@ -31,6 +31,10 @@ CREATE TABLE employee (
  FOREIGN KEY (manager_id)  REFERENCES employee(id)
 );
 
+SELECT role.id, role.title, department.name, role.salary
+FROM role
+INNER JOIN department ON role.department_id = department.id;
+
 DESCRIBE department;
 DESCRIBE role;
 DESCRIBE employee;

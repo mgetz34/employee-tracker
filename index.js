@@ -263,7 +263,7 @@ function updateEmployee() {
         ]).then((answers) => {
             db.query(`UPDATE employee SET first_name='${answers.first_name}', last_name='${answers.last_name}', role_id='${answers.role_id}',
              manager_id = '${answers.manager_id}'
-             WHERE id='${answers.employee_id}')`, (err, results) => {
+             WHERE id='${answers.employee_id}'`, (err, results) => {
                 if (err) {
                     console.log(err)
                 } else {

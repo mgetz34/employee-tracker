@@ -28,8 +28,8 @@ function start() {
                 type: 'list',
                 name: 'options',
                 message: "What would you like to do?",
-                choices: ["view all departments", "view all roles", "view all employees",
-                    "add a department", "delete a department", "add a role", "add an employee", "update an employee role"]
+                choices: ["view all departments", "view all roles", "view all employees", "add a department",
+                    "delete a department", "add a role", "delete a role", "add an employee", "update an employee role"]
             }
         ])
         .then((data) => {
@@ -51,6 +51,9 @@ function start() {
             if (data.options === "add a role") {
                 addRole();
             }
+            if (data.options === "delete a role") {
+                deleteRole();
+            }
             if (data.options === "add an employee") {
                 addEmployee();
             }
@@ -65,18 +68,18 @@ function start() {
 function viewDepartments() {
     db.query('SELECT * FROM department', function (err, results) {
         console.table(results)
-    })
+    });
 };
 function viewRoles() {
     db.query('SELECT * FROM role', function (err, results) {
         console.table(results);
     });
-}
+};
 function viewEmployees() {
     db.query('SELECT * FROM employee', function (err, results) {
         console.table(results);
     });
-}
+};
 
 function addDepartment() {
     inquirer
@@ -136,6 +139,24 @@ function addRole() {
             },
         ]).then((answers) => {
             db.query(`INSERT INTO role(title, salary, department_id) VALUES ('${answers.role_title}', '${answers.role_salary}', '${answers.department_id}')`, (err, results) => {
+                if (err) {
+                    console.log(err)
+                } else {
+                    viewRoles();
+                }
+            })
+        })
+};
+function deleteRole() {
+    inquirer
+        .prompt([
+            {
+                type: "input",
+                name: "role",
+                message: "Which role do you want to delete?"
+            }
+        ]).then((answers) => {
+            db.query(`DELETE FROM role WHERE title = ?`, `${answers.role}`, (err, result) => {
                 if (err) {
                     console.log(err)
                 } else {

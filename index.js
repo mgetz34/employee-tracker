@@ -75,6 +75,7 @@ function viewDepartments() {
 };
 // WHEN I choose to view all roles
 // THEN I am presented with the job title, role id, the department that role belongs to, and the salary for that role
+//need to make a join statement for this
 function viewRoles() {
     db.query('SELECT * FROM role', function (err, results) {
         console.table(results);
@@ -82,6 +83,7 @@ function viewRoles() {
 };
 // WHEN I choose to view all employees
 // THEN I am presented with a formatted table showing employee data, including employee ids, first names, last names, job titles, departments, salaries, and managers that the employees report to
+//need to make a join statement for this
 function viewEmployees() {
     db.query('SELECT * FROM employee', function (err, results) {
         console.table(results);
@@ -231,7 +233,7 @@ function deleteEmployee() {
         })
 };
 // WHEN I choose to update an employee role
-// THEN I am prompted to select an employee to update and their new role and this information is updated in the datab
+// THEN I am prompted to select an employee to update and their new role and this information is updated in the database
 function updateEmployee() {
     inquirer
         .prompt([

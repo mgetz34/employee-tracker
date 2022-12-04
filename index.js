@@ -34,22 +34,13 @@ function start() {
         ])
         .then((data) => {
             if (data.options === "view all departments") {
-                //view all departments query
-                db.query('SELECT * FROM department', function (err, results) {
-                    console.table(results);
-                });
+                viewDepartments();
             }
             if (data.options === "view all roles") {
-                //view all roles query
-                db.query('SELECT * FROM role', function (err, results) {
-                    console.table(results);
-                });
+                viewRoles();
             }
             if (data.options === "view all employees") {
-                //view all employees query
-                db.query('SELECT * FROM employee', function (err, results) {
-                    console.table(results);
-                });
+                viewEmployees();
             }
             if (data.options === "add a department") {
                 addDepartment();
@@ -65,10 +56,22 @@ function start() {
             }
             if (data.options === "update an employee role") {
                 updateEmployee();
+            } else {
+                return;
             }
         })
 };
 
+function viewRoles() {
+    db.query('SELECT * FROM role', function (err, results) {
+        console.table(results);
+    });
+}
+function viewEmployees() {
+    db.query('SELECT * FROM employee', function (err, results) {
+        console.table(results);
+    });
+}
 function viewDepartments() {
     db.query('SELECT * FROM department', function (err, results) {
         console.table(results)
@@ -103,7 +106,7 @@ function deleteDepartment() {
                 message: "Which department do you want to delete?"
             }
         ]).then((answers) => {
-            db.query(`DELETE FROM department WHERE name = '${answers.department}')`, (err, results) => {
+            db.query(`DELETE FROM department WHERE name = ?`, `${answers.department}`, (err, result) => {
                 if (err) {
                     console.log(err)
                 } else {
@@ -112,12 +115,6 @@ function deleteDepartment() {
             })
         })
 };
-
-
-
-
-
-
 
 // function addRole();
 // function addEmployee();

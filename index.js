@@ -62,6 +62,11 @@ function start() {
         })
 };
 
+function viewDepartments() {
+    db.query('SELECT * FROM department', function (err, results) {
+        console.table(results)
+    })
+};
 function viewRoles() {
     db.query('SELECT * FROM role', function (err, results) {
         console.table(results);
@@ -72,11 +77,6 @@ function viewEmployees() {
         console.table(results);
     });
 }
-function viewDepartments() {
-    db.query('SELECT * FROM department', function (err, results) {
-        console.table(results)
-    })
-};
 
 function addDepartment() {
     inquirer
@@ -116,6 +116,33 @@ function deleteDepartment() {
         })
 };
 
-// function addRole();
+function addRole() {
+    inquirer
+        .prompt([
+            {
+                type: "input",
+                name: "role_title",
+                message: "What is the name of the new role?"
+            },
+            {
+                type: "input",
+                name: "role_salary",
+                message: "What is the salary of the new role?"
+            },
+            {
+                type: "input",
+                name: "department_id",
+                message: "What is the department id of the new role?"
+            },
+        ]).then((answers) => {
+            db.query(`INSERT INTO role(title, salary, department_id) VALUES ('${answers.role_title}', '${answers.role_salary}', '${answers.department_id}')`, (err, results) => {
+                if (err) {
+                    console.log(err)
+                } else {
+                    viewRoles();
+                }
+            })
+        })
+};
 // function addEmployee();
 // function updateEmployee();

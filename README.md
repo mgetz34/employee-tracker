@@ -42,7 +42,7 @@ npm i, run, answer prompts
 
 ## Credits
 
-TBD
+Weng Fei Fung: 2U Tutor Faculty
 
 ## Features
 
@@ -60,3 +60,7 @@ TBD
 
 For any questions, please view my repo at: https://github.com/mgetz34
 My email address is: mgetz340@gmail.com
+
+## Video Walkthru
+
+https://drive.google.com/file/d/112mHdbj7fAZLw2NRXPhKCWUggpRvVpFB/view
